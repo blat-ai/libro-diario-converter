@@ -20,10 +20,13 @@ jobs:
       with:
         python-version: '3.11'
     
+    - name: Install uv
+      run: |
+        pip install uv
+    
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        uv pip install -r requirements.txt --system
     
     - name: Test Streamlit app import
       run: |
@@ -31,7 +34,9 @@ jobs:
     
     - name: Run Streamlit app (smoke test)
       run: |
-        timeout 30 streamlit run app/streamlit_app.py --server.headless true --server.port 8501 || echo "Streamlit started successfully"
+        start /b streamlit run app/streamlit_app.py --server.headless true --server.port 8501
+        timeout /t 10
+        curl -f http://localhost:8501 && echo "Streamlit started successfully" || echo "Streamlit failed to start"
       shell: cmd
     
     - name: Check for Windows-specific issues
