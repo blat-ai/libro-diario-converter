@@ -9,6 +9,7 @@ a = Analysis(
     datas=[
         ('app', 'app'),
     ],
+    collect_data=['streamlit', 'pandas', 'openpyxl'],
     hiddenimports=[
         'streamlit',
         'streamlit.web.cli',
@@ -18,7 +19,6 @@ a = Analysis(
         'streamlit.runtime.caching',
         'pandas',
         'openpyxl',
-        'streamlit_desktop_app',
         'app.consolidator',
     ],
     hookspath=[],
