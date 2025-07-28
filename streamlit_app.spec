@@ -10,6 +10,7 @@ a = Analysis(
         ('app', 'app'),
     ],
     collect_data=['streamlit', 'pandas', 'openpyxl'],
+    collect_all=['streamlit', 'pandas', 'openpyxl', 'altair', 'numpy', 'pytz'],
     hiddenimports=[
         'streamlit',
         'streamlit.web.cli',
