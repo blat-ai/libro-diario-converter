@@ -2,15 +2,21 @@
 
 block_cipher = None
 
+from PyInstaller.utils.hooks import copy_metadata
+
+datas = []
+datas += copy_metadata('streamlit')
+datas += copy_metadata('pandas')
+datas += copy_metadata('openpyxl')
+datas += copy_metadata('altair')
+datas += copy_metadata('numpy')
+datas += copy_metadata('pytz')
+
 a = Analysis(
     ['app/streamlit_app.py'],
     pathex=[],
     binaries=[],
-    datas=[
-        ('app', 'app'),
-    ],
-    collect_data=['streamlit', 'pandas', 'openpyxl'],
-    collect_all=['streamlit', 'pandas', 'openpyxl', 'altair', 'numpy', 'pytz'],
+    datas=datas + [('app', 'app')],
     hiddenimports=[
         'streamlit',
         'streamlit.web.cli',
