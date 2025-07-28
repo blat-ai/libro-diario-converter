@@ -1,9 +1,7 @@
 import streamlit as st
-import pandas as pd
-import os
 from pathlib import Path
 import io
-from .consolidator import ExcelConsolidator
+from app.consolidator import ExcelConsolidator
 
 
 def main():
@@ -85,4 +83,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
