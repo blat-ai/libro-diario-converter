@@ -2,7 +2,7 @@
 
 block_cipher = None
 
-from PyInstaller.utils.hooks import copy_metadata
+from PyInstaller.utils.hooks import copy_metadata, collect_data_files
 
 datas = []
 datas += copy_metadata('streamlit')
@@ -12,8 +12,11 @@ datas += copy_metadata('altair')
 datas += copy_metadata('numpy')
 datas += copy_metadata('pytz')
 
+# Add Streamlit static files
+datas += collect_data_files('streamlit')
+
 a = Analysis(
-    ['app/streamlit_app.py'],
+    ['launcher.py'],
     pathex=[],
     binaries=[],
     datas=datas + [('app', 'app')],
@@ -21,12 +24,18 @@ a = Analysis(
         'streamlit',
         'streamlit.web.cli',
         'streamlit.web.server',
+        'streamlit.web.bootstrap',
         'streamlit.runtime',
         'streamlit.runtime.scriptrunner',
         'streamlit.runtime.caching',
+        'streamlit.web.server.server',
+        'streamlit.web.server.server_util',
+        'streamlit.components.v1',
         'pandas',
         'openpyxl',
         'app.consolidator',
+        'webbrowser',
+        'threading',
     ],
     hookspath=[],
     hooksconfig={},
@@ -54,7 +63,7 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=True,
+    console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
