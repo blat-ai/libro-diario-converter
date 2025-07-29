@@ -1,0 +1,11 @@
+[global]
+developmentMode = false
+
+[server]
+headless = true
+port = 8501
+enableCORS = false
+address = "localhost"
+
+[browser]
+gatherUsageStats = false

@@ -19,7 +19,7 @@ a = Analysis(
     ['launcher.py'],
     pathex=[],
     binaries=[],
-    datas=datas + [('app', 'app')],
+    datas=datas + [('app', 'app'), ('app/.streamlit', '.streamlit')],
     hiddenimports=[
         'streamlit',
         'streamlit.web.cli',
