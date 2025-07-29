@@ -17,11 +17,161 @@ def resource_path(relative_path):
 
 def main():
     st.set_page_config(
-        page_title="Consolidador de Excel Formato A3", page_icon="📊", layout="wide"
+        page_title="Consolidador de Excel Formato A3", 
+        page_icon=resource_path("assets/blat_favicon.png"), 
+        layout="wide"
     )
+    
+    # Custom CSS for black theme with blue interactive elements
+    st.markdown("""
+    <style>
+    /* Main app background */
+    .stApp {
+        background-color: rgb(22, 22, 24);
+        color: white;
+    }
+    
+    /* Sidebar */
+    .css-1d391kg {
+        background-color: rgb(22, 22, 24);
+    }
+    
+    /* Main content area */
+    .main .block-container {
+        background-color: rgb(22, 22, 24);
+        color: white;
+    }
+    
+    /* Headers */
+    h1, h2, h3, h4, h5, h6 {
+        color: white !important;
+    }
+    
+    /* Text and markdown */
+    .stMarkdown, .stMarkdown p, .stText {
+        color: white !important;
+    }
+    
+    /* Buttons - Blue theme */
+    .stButton > button {
+        background-color: rgb(0, 153, 255) !important;
+        color: white !important;
+        border: 1px solid rgb(0, 153, 255) !important;
+        border-radius: 8px;
+    }
+    
+    .stButton > button:hover {
+        background-color: rgb(0, 133, 235) !important;
+        border: 1px solid rgb(0, 133, 235) !important;
+    }
+    
+    .stButton > button:active {
+        background-color: rgb(0, 113, 215) !important;
+    }
+    
+    /* Download button */
+    .stDownloadButton > button {
+        background-color: rgb(0, 153, 255) !important;
+        color: white !important;
+        border: 1px solid rgb(0, 153, 255) !important;
+    }
+    
+    .stDownloadButton > button:hover {
+        background-color: rgb(0, 133, 235) !important;
+    }
+    
+    /* File uploader */
+    .stFileUploader > div > div {
+        background-color: rgb(40, 40, 42) !important;
+        border: 2px dashed rgb(0, 153, 255) !important;
+        color: white !important;
+    }
+    
+    /* Success/Info/Error messages */
+    .stSuccess {
+        background-color: rgba(0, 153, 255, 0.1) !important;
+        color: white !important;
+        border: 1px solid rgb(0, 153, 255) !important;
+    }
+    
+    .stInfo {
+        background-color: rgba(0, 153, 255, 0.1) !important;
+        color: white !important;
+        border: 1px solid rgb(0, 153, 255) !important;
+    }
+    
+    .stError {
+        background-color: rgba(255, 0, 0, 0.1) !important;
+        color: white !important;
+        border: 1px solid rgb(255, 100, 100) !important;
+    }
+    
+    /* Expander */
+    .streamlit-expanderHeader {
+        background-color: rgb(40, 40, 42) !important;
+        color: white !important;
+        border: 1px solid rgb(60, 60, 62) !important;
+    }
+    
+    .streamlit-expanderContent {
+        background-color: rgb(30, 30, 32) !important;
+        color: white !important;
+        border: 1px solid rgb(60, 60, 62) !important;
+    }
+    
+    /* Dataframe */
+    .stDataFrame {
+        background-color: rgb(30, 30, 32) !important;
+        color: white !important;
+    }
+    
+    /* Progress bar */
+    .stProgress > div > div {
+        background-color: rgb(0, 153, 255) !important;
+    }
+    
+    /* Spinner */
+    .stSpinner > div {
+        border-top-color: rgb(0, 153, 255) !important;
+    }
+    
+    /* Columns and containers */
+    .element-container {
+        background-color: transparent !important;
+    }
+    
+    /* Horizontal rule */
+    hr {
+        border-color: rgb(60, 60, 62) !important;
+    }
+    
+    /* Input fields if any */
+    .stTextInput > div > div > input {
+        background-color: rgb(40, 40, 42) !important;
+        color: white !important;
+        border: 1px solid rgb(60, 60, 62) !important;
+    }
+    
+    /* Select boxes if any */
+    .stSelectbox > div > div > select {
+        background-color: rgb(40, 40, 42) !important;
+        color: white !important;
+        border: 1px solid rgb(60, 60, 62) !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-    st.title("📊 Consolidador de Excel Formato A3")
+    # Header with Blat branding
+    col1, col2 = st.columns([1, 8])
+    with col1:
+        try:
+            st.image(resource_path("assets/blat_logo.png"), width=80)
+        except:
+            st.write("🅱️")  # Fallback if image not found
+    
+    st.title("Consolidador de Excel Formato A3")
     st.markdown("**Esta aplicación solo acepta libro diario con formato A3 que tiene las cuentas contables separadas en sheets por cada mes.**")
+    
     st.markdown("---")
 
     consolidator = ExcelConsolidator()
