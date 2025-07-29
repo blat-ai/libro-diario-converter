@@ -5,6 +5,7 @@ import os
 import sys
 from app.consolidator import ExcelConsolidator
 
+
 def resource_path(relative_path):
     """Get absolute path to resource, works for dev and for PyInstaller bundle."""
     try:
@@ -20,6 +21,7 @@ def main():
     )
 
     st.title("📊 Consolidador de Excel Formato A3")
+    st.markdown("**Esta aplicación solo acepta libro diario con formato A3 que tiene las cuentas contables separadas en sheets por cada mes.**")
     st.markdown("---")
 
     consolidator = ExcelConsolidator()
@@ -27,6 +29,11 @@ def main():
     # Instructions section (collapsible)
     with st.expander("📋 Instrucciones", expanded=False):
         st.markdown("""
+        **Requisitos del archivo:**
+        - Solo acepta archivos Excel con formato A3
+        - El libro diario debe tener las cuentas contables separadas en sheets por cada mes
+        
+        **Pasos para procesar:**
         1. **Sube** tu archivo Excel usando el cargador de archivos de abajo
         2. La aplicación procesará todas las hojas y buscará las columnas 'Fecha' y 'Asiento'
         3. Las entradas válidas de todas las hojas se consolidarán en una hoja 'MASTER'
@@ -39,9 +46,9 @@ def main():
     st.subheader("📁 Selección de Archivo")
 
     uploaded_file = st.file_uploader(
-        "Selecciona un archivo Excel",
+        "Selecciona un archivo Excel (formato A3)",
         type=["xlsx", "xls"],
-        help="Selecciona el archivo Excel que quieres consolidar",
+        help="Selecciona el archivo Excel con formato A3 que contiene el libro diario con cuentas contables separadas por mes",
     )
 
     if uploaded_file is not None:
@@ -89,6 +96,60 @@ def main():
                     st.error(f"❌ Ha ocurrido un error: {str(e)}")
     else:
         st.info("👆 Por favor sube un archivo Excel para comenzar")
+
+    # Add footer section with close button
+    st.markdown("---")
+    
+    # Professional close button styling
+    st.markdown("""
+    <style>
+    .shutdown-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem 0;
+    }
+    .shutdown-message {
+        text-align: center;
+        color: #666;
+        font-size: 1.1rem;
+        margin: 1rem 0;
+    }
+    .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #ff4757;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-right: 10px;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("🔴 Cerrar Aplicación", 
+                    help="Cierra completamente la aplicación",
+                    key="shutdown_btn",
+                    use_container_width=True,
+                    type="secondary"):
+            st.markdown('''
+            <div class="shutdown-message">
+                <div class="loading-spinner"></div>
+                Cerrando aplicación...
+            </div>
+            ''', unsafe_allow_html=True)
+            import time
+            time.sleep(2)
+            # Force exit the entire Python process including launcher
+            import signal
+            os.kill(os.getpid(), signal.SIGTERM)
 
 
 if __name__ == "__main__":
