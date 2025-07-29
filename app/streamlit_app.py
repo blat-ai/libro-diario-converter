@@ -16,9 +16,19 @@ def resource_path(relative_path):
 
 
 def main():
+    # Handle favicon with fallback
+    favicon_path = resource_path("assets/blat_favicon.png")
+    try:
+        if os.path.exists(favicon_path):
+            page_icon = favicon_path
+        else:
+            page_icon = "🅱️"  # Fallback emoji
+    except:
+        page_icon = "🅱️"  # Fallback emoji
+    
     st.set_page_config(
         page_title="Consolidador de Excel Formato A3", 
-        page_icon=resource_path("assets/blat_favicon.png"), 
+        page_icon=page_icon, 
         layout="wide"
     )
     
@@ -164,10 +174,40 @@ def main():
     # Header with Blat branding
     col1, col2 = st.columns([1, 8])
     with col1:
+        logo_path = resource_path("assets/blat_logo.png")
         try:
-            st.image(resource_path("assets/blat_logo.png"), width=80)
-        except:
-            st.write("🅱️")  # Fallback if image not found
+            if os.path.exists(logo_path):
+                st.image(logo_path, width=80)
+            else:
+                st.markdown("""
+                <div style="
+                    width: 80px; 
+                    height: 80px; 
+                    background-color: #0099ff; 
+                    border-radius: 8px; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                    font-size: 32px; 
+                    font-weight: bold; 
+                    color: white;
+                ">🅱️</div>
+                """, unsafe_allow_html=True)
+        except Exception as e:
+            st.markdown("""
+            <div style="
+                width: 80px; 
+                height: 80px; 
+                background-color: #0099ff; 
+                border-radius: 8px; 
+                display: flex; 
+                align-items: center; 
+                justify-content: center; 
+                font-size: 32px; 
+                font-weight: bold; 
+                color: white;
+            ">🅱️</div>
+            """, unsafe_allow_html=True)
     
     st.title("Consolidador de Excel Formato A3")
     st.markdown("**Esta aplicación solo acepta libro diario con formato A3 que tiene las cuentas contables separadas en sheets por cada mes.**")
@@ -250,18 +290,24 @@ def main():
     # Add footer section with close button
     st.markdown("---")
     
-    # Professional close button styling
+    # Professional close button styling with Edge compatibility
     st.markdown("""
     <style>
     .shutdown-container {
+        display: -ms-flexbox;
+        display: -webkit-flex;
         display: flex;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
         justify-content: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
         align-items: center;
         margin: 2rem 0;
     }
     .shutdown-message {
         text-align: center;
-        color: #666;
+        color: #666 !important;
         font-size: 1.1rem;
         margin: 1rem 0;
     }
@@ -272,12 +318,60 @@ def main():
         border: 3px solid #f3f3f3;
         border-top: 3px solid #ff4757;
         border-radius: 50%;
+        -webkit-animation: spin 1s linear infinite;
+        -moz-animation: spin 1s linear infinite;
+        -ms-animation: spin 1s linear infinite;
         animation: spin 1s linear infinite;
         margin-right: 10px;
+        vertical-align: middle;
+    }
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+    @-moz-keyframes spin {
+        0% { -moz-transform: rotate(0deg); }
+        100% { -moz-transform: rotate(360deg); }
+    }
+    @-ms-keyframes spin {
+        0% { -ms-transform: rotate(0deg); }
+        100% { -ms-transform: rotate(360deg); }
     }
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
+    }
+    
+    /* Enhanced button styling for Edge compatibility */
+    .stButton > button[data-testid="baseButton-secondary"] {
+        background-color: #dc3545 !important;
+        color: white !important;
+        border: 2px solid #dc3545 !important;
+        border-radius: 8px !important;
+        padding: 0.5rem 1rem !important;
+        font-weight: 600 !important;
+        transition: all 0.3s ease !important;
+        -webkit-transition: all 0.3s ease !important;
+        -moz-transition: all 0.3s ease !important;
+        -ms-transition: all 0.3s ease !important;
+    }
+    
+    .stButton > button[data-testid="baseButton-secondary"]:hover {
+        background-color: #c82333 !important;
+        border-color: #bd2130 !important;
+        transform: translateY(-2px) !important;
+        -webkit-transform: translateY(-2px) !important;
+        -moz-transform: translateY(-2px) !important;
+        -ms-transform: translateY(-2px) !important;
+        box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3) !important;
+    }
+    
+    .stButton > button[data-testid="baseButton-secondary"]:active {
+        background-color: #bd2130 !important;
+        transform: translateY(0px) !important;
+        -webkit-transform: translateY(0px) !important;
+        -moz-transform: translateY(0px) !important;
+        -ms-transform: translateY(0px) !important;
     }
     </style>
     """, unsafe_allow_html=True)
