@@ -83,21 +83,42 @@ def main():
         color: white !important;
     }
     
-    /* Buttons - Blue theme */
-    .stButton > button {
+    /* Buttons - Blue theme for primary buttons */
+    .stButton > button[data-testid="baseButton-primary"] {
         background-color: rgb(0, 153, 255) !important;
         color: white !important;
         border: 1px solid rgb(0, 153, 255) !important;
-        border-radius: 8px;
+        border-radius: 8px !important;
+        padding: 0.5rem 1rem !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        white-space: nowrap !important;
     }
     
-    .stButton > button:hover {
+    .stButton > button[data-testid="baseButton-primary"]:hover {
         background-color: rgb(0, 133, 235) !important;
         border: 1px solid rgb(0, 133, 235) !important;
+        color: white !important;
     }
     
-    .stButton > button:active {
+    .stButton > button[data-testid="baseButton-primary"]:active {
         background-color: rgb(0, 113, 215) !important;
+        color: white !important;
+    }
+    
+    /* General button fallback for any other buttons */
+    .stButton > button:not([data-testid="baseButton-secondary"]) {
+        color: white !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: inline-block !important;
+        text-align: center !important;
+        font-weight: 500 !important;
+        padding: 0.5rem 1rem !important;
+        white-space: nowrap !important;
     }
     
     /* Download button */
@@ -115,6 +136,26 @@ def main():
     .stFileUploader > div > div {
         background-color: rgb(40, 40, 42) !important;
         border: 2px dashed rgb(0, 153, 255) !important;
+        color: white !important;
+    }
+    
+    /* File uploader button */
+    .stFileUploader button {
+        background-color: rgb(0, 153, 255) !important;
+        color: white !important;
+        border: 1px solid rgb(0, 153, 255) !important;
+        border-radius: 8px !important;
+        padding: 0.5rem 1rem !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        white-space: nowrap !important;
+    }
+    
+    .stFileUploader button:hover {
+        background-color: rgb(0, 133, 235) !important;
         color: white !important;
     }
     
@@ -363,29 +404,20 @@ def main():
         100% { transform: rotate(360deg); }
     }
     
-    /* Enhanced close button styling - Microsoft Edge compatible */
+    /* Ensure all buttons have visible text by default */
     .stButton > button {
-        background-color: #dc3545 !important;
         color: white !important;
-        border: 2px solid #dc3545 !important;
-        border-radius: 8px !important;
-        padding: 0.75rem 1.5rem !important;
-        font-weight: 600 !important;
-        font-size: 1rem !important;
-        min-height: 48px !important;
-        min-width: 200px !important;
-        display: block !important;
-        text-align: center !important;
-        line-height: normal !important;
-        white-space: nowrap !important;
-        overflow: visible !important;
         visibility: visible !important;
         opacity: 1 !important;
-        transition: all 0.3s ease !important;
-        -webkit-transition: all 0.3s ease !important;
-        -moz-transition: all 0.3s ease !important;
-        -ms-transition: all 0.3s ease !important;
+        display: inline-block !important;
+        text-align: center !important;
+        font-weight: 500 !important;
+        padding: 0.5rem 1rem !important;
+        white-space: nowrap !important;
+        border-radius: 8px !important;
     }
+    
+    /* Enhanced close button styling - Microsoft Edge compatible - ONLY for secondary buttons */
     
     .stButton > button[data-testid="baseButton-secondary"] {
         background-color: #dc3545 !important;
@@ -438,7 +470,7 @@ def main():
     
     /* Specific targeting for Edge browser */
     @supports (-ms-ime-align: auto) {
-        .stButton > button {
+        .stButton > button[data-testid="baseButton-secondary"] {
             background-color: #dc3545 !important;
             color: white !important;
             border: 2px solid #dc3545 !important;
@@ -450,6 +482,13 @@ def main():
             min-height: 48px !important;
             width: auto !important;
             text-decoration: none !important;
+        }
+        
+        .stButton > button:not([data-testid="baseButton-secondary"]) {
+            color: white !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            display: inline-block !important;
         }
         
         /* Fix Edge white header issue */
