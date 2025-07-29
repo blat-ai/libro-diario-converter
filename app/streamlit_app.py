@@ -37,19 +37,40 @@ def main():
     <style>
     /* Main app background */
     .stApp {
-        background-color: rgb(22, 22, 24);
-        color: white;
+        background-color: rgb(22, 22, 24) !important;
+        color: white !important;
+    }
+    
+    /* Streamlit header area - fix for Edge white header */
+    .stApp > header,
+    .stApp header,
+    header[data-testid="stHeader"],
+    [data-testid="stHeader"],
+    .css-18ni7ap,
+    .css-1avcm0n {
+        background-color: rgb(22, 22, 24) !important;
+        color: white !important;
     }
     
     /* Sidebar */
     .css-1d391kg {
-        background-color: rgb(22, 22, 24);
+        background-color: rgb(22, 22, 24) !important;
     }
     
     /* Main content area */
     .main .block-container {
-        background-color: rgb(22, 22, 24);
-        color: white;
+        background-color: rgb(22, 22, 24) !important;
+        color: white !important;
+    }
+    
+    /* Force dark theme on all containers - Edge specific */
+    .stApp > div,
+    .stApp section,
+    .css-k1vhr4,
+    .css-1y4p8pa,
+    .css-18e3th9 {
+        background-color: rgb(22, 22, 24) !important;
+        color: white !important;
     }
     
     /* Headers */
@@ -342,36 +363,120 @@ def main():
         100% { transform: rotate(360deg); }
     }
     
-    /* Enhanced button styling for Edge compatibility */
-    .stButton > button[data-testid="baseButton-secondary"] {
+    /* Enhanced close button styling - Microsoft Edge compatible */
+    .stButton > button {
         background-color: #dc3545 !important;
         color: white !important;
         border: 2px solid #dc3545 !important;
         border-radius: 8px !important;
-        padding: 0.5rem 1rem !important;
+        padding: 0.75rem 1.5rem !important;
         font-weight: 600 !important;
+        font-size: 1rem !important;
+        min-height: 48px !important;
+        min-width: 200px !important;
+        display: block !important;
+        text-align: center !important;
+        line-height: normal !important;
+        white-space: nowrap !important;
+        overflow: visible !important;
+        visibility: visible !important;
+        opacity: 1 !important;
         transition: all 0.3s ease !important;
         -webkit-transition: all 0.3s ease !important;
         -moz-transition: all 0.3s ease !important;
         -ms-transition: all 0.3s ease !important;
     }
     
+    .stButton > button[data-testid="baseButton-secondary"] {
+        background-color: #dc3545 !important;
+        color: white !important;
+        border: 2px solid #dc3545 !important;
+        border-radius: 8px !important;
+        padding: 0.75rem 1.5rem !important;
+        font-weight: 600 !important;
+        font-size: 1rem !important;
+        min-height: 48px !important;
+        min-width: 200px !important;
+        display: block !important;
+        text-align: center !important;
+        line-height: normal !important;
+        white-space: nowrap !important;
+        overflow: visible !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transition: all 0.3s ease !important;
+        -webkit-transition: all 0.3s ease !important;
+        -moz-transition: all 0.3s ease !important;
+        -ms-transition: all 0.3s ease !important;
+    }
+    
+    .stButton > button:hover,
     .stButton > button[data-testid="baseButton-secondary"]:hover {
         background-color: #c82333 !important;
         border-color: #bd2130 !important;
+        color: white !important;
         transform: translateY(-2px) !important;
         -webkit-transform: translateY(-2px) !important;
         -moz-transform: translateY(-2px) !important;
         -ms-transform: translateY(-2px) !important;
         box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
     
+    .stButton > button:active,
     .stButton > button[data-testid="baseButton-secondary"]:active {
         background-color: #bd2130 !important;
+        color: white !important;
         transform: translateY(0px) !important;
         -webkit-transform: translateY(0px) !important;
         -moz-transform: translateY(0px) !important;
         -ms-transform: translateY(0px) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* Specific targeting for Edge browser */
+    @supports (-ms-ime-align: auto) {
+        .stButton > button {
+            background-color: #dc3545 !important;
+            color: white !important;
+            border: 2px solid #dc3545 !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            font-size: 1rem !important;
+            padding: 12px 24px !important;
+            min-height: 48px !important;
+            width: auto !important;
+            text-decoration: none !important;
+        }
+        
+        /* Fix Edge white header issue */
+        .stApp,
+        .stApp > div,
+        .stApp header,
+        header,
+        [data-testid="stHeader"],
+        body,
+        html {
+            background-color: rgb(22, 22, 24) !important;
+            color: white !important;
+        }
+    }
+    
+    /* Additional Edge detection method */
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        .stApp {
+            background-color: rgb(22, 22, 24) !important;
+        }
+        
+        .stApp > div,
+        .stApp header,
+        header {
+            background-color: rgb(22, 22, 24) !important;
+            color: white !important;
+        }
     }
     </style>
     """, unsafe_allow_html=True)
