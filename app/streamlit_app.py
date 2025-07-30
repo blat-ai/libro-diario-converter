@@ -35,6 +35,54 @@ def main():
     # Custom CSS for black theme with blue interactive elements
     st.markdown("""
     <style>
+    /* Cross-Platform CSS Normalization */
+    * {
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+    
+    /* System font stack for cross-platform consistency */
+    body, .stApp, .stApp * {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Ubuntu", "Roboto", "Helvetica Neue", Arial, sans-serif !important;
+        font-synthesis: none;
+        -webkit-text-size-adjust: 100%;
+        -moz-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+    
+    /* Windows-specific font rendering improvements */
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        * {
+            font-weight: 400 !important;
+            -ms-text-size-adjust: 100%;
+        }
+        
+        .stButton > button {
+            font-weight: 500 !important;
+        }
+    }
+    
+    /* Windows Chrome detection and fixes */
+    @supports (-webkit-appearance: none) and (not (-moz-appearance: none)) {
+        @media (prefers-reduced-motion: no-preference) {
+            /* Windows Chrome detected */
+            .stApp {
+                font-size: 14px !important;
+                line-height: 1.4 !important;
+            }
+            
+            .stButton > button {
+                font-size: 14px !important;
+                font-weight: 500 !important;
+                letter-spacing: 0.025em !important;
+                padding: 8px 16px !important;
+                min-height: 40px !important;
+            }
+        }
+    }
+    
     /* Main app background */
     .stApp {
         background-color: rgb(22, 22, 24) !important;
@@ -404,7 +452,7 @@ def main():
         100% { transform: rotate(360deg); }
     }
     
-    /* Ensure all buttons have visible text by default */
+    /* Cross-platform button normalization */
     .stButton > button {
         color: white !important;
         visibility: visible !important;
@@ -414,7 +462,32 @@ def main():
         font-weight: 500 !important;
         padding: 0.5rem 1rem !important;
         white-space: nowrap !important;
-        border-radius: 8px !important;
+        border-radius: 6px !important;
+        border: 1px solid transparent !important;
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+        min-height: 38px !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease-in-out !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+        outline: none !important;
+        text-decoration: none !important;
+        vertical-align: middle !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+    }
+    
+    /* High DPI display improvements */
+    @media (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
+        .stButton > button {
+            font-size: 13px !important;
+            padding: 6px 14px !important;
+            border-width: 1px !important;
+        }
     }
     
     /* Enhanced close button styling - Microsoft Edge compatible - ONLY for secondary buttons */
@@ -504,7 +577,7 @@ def main():
         }
     }
     
-    /* Additional Edge detection method */
+    /* Windows-specific improvements */
     @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
         .stApp {
             background-color: rgb(22, 22, 24) !important;
@@ -515,6 +588,32 @@ def main():
         header {
             background-color: rgb(22, 22, 24) !important;
             color: white !important;
+        }
+        
+        /* Windows button improvements */
+        .stButton > button {
+            font-family: "Segoe UI", system-ui, sans-serif !important;
+            font-weight: 400 !important;
+            letter-spacing: 0.01em !important;
+        }
+        
+        .stButton > button[data-testid="baseButton-secondary"] {
+            font-weight: 500 !important;
+        }
+    }
+    
+    /* Chrome on Windows detection and specific fixes */
+    @supports (-webkit-appearance: none) {
+        @media screen and (min-width: 0\0) {
+            /* Windows Chrome specific adjustments */
+            .stApp {
+                font-kerning: normal !important;
+            }
+            
+            .stButton > button {
+                font-variant-ligatures: none !important;
+                font-feature-settings: "kern" 1 !important;
+            }
         }
     }
     </style>
